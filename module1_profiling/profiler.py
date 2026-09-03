@@ -84,8 +84,11 @@ def save_report(report: dict, output_path: str):
 
 
 if __name__ == "__main__":
-    # Shembull përdorimi — zëvendëso me path-in e vërtetë të dataset-it
-    # df = load_dataset("../data/raw/dataset.csv")
-    # report = build_profiling_report(df)
-    # save_report(report, "../data/processed/profiling_report.json")
-    print("Module 1 skeleton gati. Shto path-in e dataset-it dhe fillo profiling-un.")
+    df = load_dataset("../data/raw/creditcard.csv")
+    print(f"Dataset i ngarkuar: {df.shape[0]} rreshta, {df.shape[1]} kolona")
+    
+    report = build_profiling_report(df)
+    save_report(report, "../data/processed/profiling_report.json")
+    
+    print("Profiling report u ruajt te data/processed/profiling_report.json")
+    print(f"Kolona të dyshimta (PII): {report['suspicious_columns']}")
