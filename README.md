@@ -51,7 +51,7 @@ anomaly detection — fraud).
 |7-9|Modul 3|AI Validation \& Anomaly Detection|
 |10-12|Modul 4|Integration, Orchestration, Production|
 
-## Si të runohet (do plotësohet gjatë projektit)
+## Si të bëhet run (do plotësohet gjatë projektit)
 
 ```bash
 pip install -r requirements.txt
