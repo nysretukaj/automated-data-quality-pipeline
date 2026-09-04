@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T14:18:22.370766",
+  "generated_at": "2026-09-04T14:35:21.288483",
   "n_rows": 284807,
   "n_columns": 31,
   "column_types": {
@@ -35,6 +35,40 @@
     "Amount": "numeric",
     "Class": "numeric"
   },
+  "semantic_meaning": {
+    "Time": "date/time",
+    "V1": "unknown",
+    "V2": "unknown",
+    "V3": "unknown",
+    "V4": "unknown",
+    "V5": "unknown",
+    "V6": "unknown",
+    "V7": "unknown",
+    "V8": "unknown",
+    "V9": "unknown",
+    "V10": "unknown",
+    "V11": "unknown",
+    "V12": "unknown",
+    "V13": "unknown",
+    "V14": "unknown",
+    "V15": "unknown",
+    "V16": "unknown",
+    "V17": "unknown",
+    "V18": "unknown",
+    "V19": "unknown",
+    "V20": "unknown",
+    "V21": "unknown",
+    "V22": "unknown",
+    "V23": "unknown",
+    "V24": "unknown",
+    "V25": "unknown",
+    "V26": "unknown",
+    "V27": "unknown",
+    "V28": "unknown",
+    "Amount": "unknown",
+    "Class": "unknown"
+  },
+  "mixed_type_columns": [],
   "missing_values": {
     "Time": {
       "missing_count": 0,
