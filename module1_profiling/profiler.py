@@ -82,13 +82,75 @@ def save_report(report: dict, output_path: str):
     with open(output_path, "w") as f:
         json.dump(report, f, indent=2)
 
+import matplotlib
+matplotlib.use("Agg")  # backend pa GUI, ruan direkt në file
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+
+def plot_missing_heatmap(df: pd.DataFrame, output_path: str):
+    """Heatmap i vlerave që mungojnë (bosh nëse s'ka missing values)."""
+    plt.figure(figsize=(12, 6))
+    sns.heatmap(df.isnull(), cbar=False, cmap="viridis")
+    plt.title("Missing Values Heatmap")
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
+
+def plot_correlation_heatmap(df: pd.DataFrame, output_path: str):
+    """Heatmap i korrelacionit ndërmjet kolonave numerike."""
+    numeric_df = df.select_dtypes(include=[np.number])
+    plt.figure(figsize=(14, 10))
+    corr = numeric_df.corr()
+    sns.heatmap(corr, cmap="coolwarm", center=0, annot=False)
+    plt.title("Correlation Heatmap")
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
+
+def plot_outlier_distribution(df: pd.DataFrame, column: str, output_path: str):
+    """Boxplot për me identifiku outliers në një kolonë specifike."""
+    plt.figure(figsize=(10, 5))
+    sns.boxplot(x=df[column])
+    plt.title(f"Outlier Distribution: {column}")
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
+
+def plot_class_distribution(df: pd.DataFrame, output_path: str):
+    """Distribucioni i target kolonës (Class: fraud vs jo-fraud)."""
+    plt.figure(figsize=(6, 5))
+    sns.countplot(x="Class", data=df)
+    plt.title("Class Distribution (0 = Normal, 1 = Fraud)")
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
 
 if __name__ == "__main__":
     df = load_dataset("../data/raw/creditcard.csv")
     print(f"Dataset i ngarkuar: {df.shape[0]} rreshta, {df.shape[1]} kolona")
-    
+
     report = build_profiling_report(df)
     save_report(report, "../data/processed/profiling_report.json")
-    
     print("Profiling report u ruajt te data/processed/profiling_report.json")
-    print(f"Kolona të dyshimta (PII): {report['suspicious_columns']}")
+
+    os.makedirs("../data/processed/visuals", exist_ok=True)
+
+    plot_missing_heatmap(df, "../data/processed/visuals/missing_heatmap.png")
+    print("Missing heatmap u ruajt.")
+
+    plot_correlation_heatmap(df, "../data/processed/visuals/correlation_heatmap.png")
+    print("Correlation heatmap u ruajt.")
+
+    plot_outlier_distribution(df, "Amount", "../data/processed/visuals/amount_outliers.png")
+    print("Amount outlier distribution u ruajt.")
+
+    plot_class_distribution(df, "../data/processed/visuals/class_distribution.png")
+    print("Class distribution u ruajt.")
+
+    print("\nGjithçka u kompletua! Kontrollo data/processed/visuals/")
