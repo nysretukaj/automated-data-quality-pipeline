@@ -69,17 +69,16 @@ def detect_mixed_type_columns(df: pd.DataFrame) -> list:
     """
     mixed = []
     for col in df.columns:
-        if df[col].dtype == object:
+        if df[col].dtype == object or pd.api.types.is_string_dtype(df[col]):
             types_found = df[col].dropna().apply(lambda x: type(x).__name__).unique()
             if len(types_found) > 1:
                 mixed.append(col)
-            else:
-                sample = df[col].dropna().astype(str)
-                is_numeric_like = sample.str.match(r"^-?\d+\.?\d*$")
-                if is_numeric_like.any() and not is_numeric_like.all():
-                    mixed.append(col)
+                continue
+            sample = df[col].dropna().astype(str)
+            is_numeric_like = sample.str.match(r"^-?\d+\.?\d*$")
+            if is_numeric_like.any() and not is_numeric_like.all():
+                mixed.append(col)
     return mixed
-
 
 def missing_value_report(df: pd.DataFrame) -> dict:
     """Raporti i vlerave që mungojnë për çdo kolonë."""

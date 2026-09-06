@@ -39,6 +39,8 @@ ready to be consumed by Module 2 (Cleaning).
 - The dataset is highly imbalanced (see `class_distribution.png`) — fraud (Class = 1)
   represents only a small fraction of the data, which will directly shape the strategy
   for Module 3 (anomaly detection)
+  - Semantic detection and mixed-type checks were run but found no matches — expected,
+  since all columns are PCA-anonymized numeric values with no natural-language content
 
 ## How to run
 ```bash
